@@ -5,6 +5,8 @@
 #include <fstream>
 #include <sstream>
 #include <stdio.h>
+#include <vector>
+#include <cstdlib>
 
 struct dataEntry {
     std::string date;
@@ -22,7 +24,7 @@ class CSVReader
 public:
     CSVReader();
     ~CSVReader();
-    void InputData();
+    void InputData(std::vector<dataEntry> *startingData);
     bool is_empty(std::ifstream& pFile);
 };
 
