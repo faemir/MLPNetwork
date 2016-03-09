@@ -92,7 +92,7 @@
   </Settings>
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
-    <File Name="dataInput.h"/>
-    <File Name="dataInput.cpp"/>
+    <File Name="CSVReader.cpp"/>
+    <File Name="CSVReader.h"/>
   </VirtualDirectory>
 </CodeLite_Project>
