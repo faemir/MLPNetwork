@@ -94,5 +94,11 @@
     <File Name="main.cpp"/>
     <File Name="CSVReader.cpp"/>
     <File Name="CSVReader.h"/>
+    <File Name="Node.h"/>
+    <File Name="Node.cpp"/>
+    <File Name="Layer.h"/>
+    <File Name="Layer.cpp"/>
+    <File Name="BackProp.h"/>
+    <File Name="BackProp.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
