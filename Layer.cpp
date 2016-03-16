@@ -3,7 +3,6 @@
 Layer::Layer()
 {
     inputs.resize(5);
-    initNodes();
 }
 
 Layer::~Layer()
@@ -34,7 +33,7 @@ std::vector<float> Layer::allOutputs() {
 void Layer::initNodes() {
     for (int i = 0; i < numberOfNodes; i++) {
         Node newNode;
-        newNode.setInitialWeights(numberOfNodes);
         nodes[i] = newNode;
+        nodes[i].setInitialWeights(numberOfNodes);
     }
 }

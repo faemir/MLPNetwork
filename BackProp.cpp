@@ -5,6 +5,7 @@ BackProp::BackProp(std::vector<dataEntry> *startingData)
 {
     numberOfSamples = startingData->size();
     iterations = 200;
+    //lots of object initialisation
     layers.resize(3); //we need 3 layers including the input and output layers
     layers[0].numberOfNodes = 5;
     layers[1].numberOfNodes = 5;
@@ -16,6 +17,15 @@ BackProp::BackProp(std::vector<dataEntry> *startingData)
     for (int i = 0; i < numberOfSamples; i++) {
         expectedResults[i] = (*startingData)[i].evap;
     }
+    for (unsigned int j = 0; j < layers[1].nodes.size(); j++) {
+        layers[1].nodes[j].weights.resize(5);
+        layers[1].initNodes();
+    }
+    for (unsigned int k = 0; k < layers[2].nodes.size(); k++) {
+        layers[2].nodes[k].weights.resize(5);
+        layers[2].initNodes();
+    }
+
     Training(startingData);
 }
 
@@ -32,6 +42,7 @@ void BackProp::CallForwardPasses() {
     layers[1].inputs = layers[0].inputs;
     layers[1].ForwardPass();
     layers[2].inputs = layers[1].allOutputs();
+    layers[2].ForwardPass();
 }
 
 //working out the δ for hidden layer and output
@@ -58,7 +69,7 @@ void BackProp::ErrorCalc() {
 //new weight = weight + p * δ * u
 void BackProp::PassErrorWeights() {
     int p = 0.1; //step parameter
-    for (unsigned int i = 2; i >= 0; i--) {
+    for (unsigned int i = 2; i > 0; i--) {
         for (unsigned int j = 0; j < layers[i].nodes.size(); j++) {
             for (unsigned int k = 0; k < layers[i-1].nodes.size(); k++) {
                 float newW = p * layers[i-1].nodes[k].signalError * layers[i].nodes[j].output;

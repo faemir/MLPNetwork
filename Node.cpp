@@ -17,6 +17,7 @@ void Node::setInitialBias() {
 }
 
 void Node::setInitialWeights(int numPrevNodes) {
+    weights.resize(numPrevNodes);
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
