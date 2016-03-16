@@ -2,19 +2,24 @@
 
 #include "Layer.h"
 #include <vector>
+#include "CSVReader.h"
 
 class BackProp
 {
 public:
-    BackProp();
+    BackProp(std::vector<dataEntry> *startingData);
     ~BackProp();
 
     std::vector<Layer> layers;
     int numberOfSamples;
     int currentSample;
+    std::vector<float> expectedResults;
+    std::vector<float> actualResults;
+    int iterations;
 
-    void ForwardPass();
-    void BackPass();
+    void CallForwardPasses();
     void ErrorCalc();
-    void PassError();
+    void PassErrorWeights();
+    void Training(std::vector<dataEntry> *startingData);
+    void Results();
 };

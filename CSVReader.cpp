@@ -29,7 +29,7 @@ void CSVReader::InputData(std::vector<dataEntry> *startingData) {
         singleDataLine.wind = std::atof(tempList[2].c_str());
         singleDataLine.rad = std::atof(tempList[3].c_str());
         singleDataLine.airp = std::atof(tempList[4].c_str());
-        singleDataLine.hum = std::atoi(tempList[5].c_str());
+        singleDataLine.hum = std::atof(tempList[5].c_str());
         singleDataLine.evap = std::atof(tempList[6].c_str());
         startingData->push_back(singleDataLine);
     }

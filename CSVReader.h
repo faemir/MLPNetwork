@@ -14,7 +14,7 @@ struct dataEntry {
     float wind;
     float rad;
     float airp;
-    int hum;
+    float hum;
     float evap;
 
 };

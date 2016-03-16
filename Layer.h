@@ -18,7 +18,7 @@ public:
     int numberOfNodes;
 
     //calculate outputs in forwards propogation
-    void FeedForward();
+    void ForwardPass();
     //output of all nodes in the layer
     std::vector<float> allOutputs();
     //creates nodes for the layer

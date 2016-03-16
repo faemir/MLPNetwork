@@ -2,6 +2,7 @@
 
 Layer::Layer()
 {
+    inputs.resize(5);
     initNodes();
 }
 
@@ -10,7 +11,7 @@ Layer::~Layer()
 }
 
 //work out this layer's s values, then u values using sigmoid function
-void Layer::FeedForward() {
+void Layer::ForwardPass() {
     for (unsigned int i = 0; i < nodes.size(); i++) {
         int s = 0 + nodes[i].bias;
         for (unsigned int j = 0; j < nodes[i].weights.size(); j++) {
@@ -29,7 +30,7 @@ std::vector<float> Layer::allOutputs() {
     return(allLayerOutputs);
 }
 
-//create layers nodes and put in nodes of this layer
+//create nodes for this layer and adds to vector
 void Layer::initNodes() {
     for (int i = 0; i < numberOfNodes; i++) {
         Node newNode;
