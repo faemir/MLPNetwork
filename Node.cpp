@@ -10,18 +10,12 @@ Node::~Node()
 }
 
 void Node::setInitialBias() {
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
-    bias = dist(mt);
+    bias = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 }
 
-void Node::setInitialWeights(int numPrevNodes) {
-    weights.resize(numPrevNodes);
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
-    for (int i = 0; i < numPrevNodes; i++) {
-        weights[i] = dist(mt);
+void Node::setInitialWeights(int prevNumNodes) {
+    weights.resize(prevNumNodes);
+    for (int i = 0; i < prevNumNodes; i++) {
+        weights[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
     }
 }

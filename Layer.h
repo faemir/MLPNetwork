@@ -3,6 +3,7 @@
 #include <vector>
 #include <tgmath.h>
 #include "Node.h"
+#include <iostream>
 
 class Layer
 {
@@ -22,5 +23,5 @@ public:
     //output of all nodes in the layer
     std::vector<float> allOutputs();
     //creates nodes for the layer
-    void initNodes();
+    void initNodes(int prevNumNodes);
 };

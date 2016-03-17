@@ -1,10 +1,10 @@
 #include "BackProp.h"
-#include <iostream>
+
 
 BackProp::BackProp(std::vector<dataEntry> *startingData)
 {
     numberOfSamples = startingData->size();
-    iterations = 200;
+    iterations = 50;
     //lots of object initialisation
     layers.resize(3); //we need 3 layers including the input and output layers
     layers[0].numberOfNodes = 5;
@@ -19,11 +19,11 @@ BackProp::BackProp(std::vector<dataEntry> *startingData)
     }
     for (unsigned int j = 0; j < layers[1].nodes.size(); j++) {
         layers[1].nodes[j].weights.resize(5);
-        layers[1].initNodes();
+        layers[1].initNodes(5);
     }
     for (unsigned int k = 0; k < layers[2].nodes.size(); k++) {
         layers[2].nodes[k].weights.resize(5);
-        layers[2].initNodes();
+        layers[2].initNodes(5);
     }
 
     Training(startingData);
@@ -40,8 +40,10 @@ void BackProp::CallForwardPasses() {
         layers[0].nodes[i].output = layers[0].inputs[i];
     }
     layers[1].inputs = layers[0].inputs;
+    std::cout << "hidden forward pass \n";
     layers[1].ForwardPass();
     layers[2].inputs = layers[1].allOutputs();
+    std::cout << "output forward pass \n";
     layers[2].ForwardPass();
 }
 
@@ -78,31 +80,36 @@ void BackProp::PassErrorWeights() {
         }
     }
 }
+
 //train the MLP on the first part of data
 void BackProp::Training(std::vector<dataEntry> *startingData) {
-    for (int i = 0; i < numberOfSamples; i++) {
-        currentSample = i;
-        //set the input values
-        layers[0].inputs[0] = (*startingData)[i].temp;
-        layers[0].inputs[1] = (*startingData)[i].wind;
-        layers[0].inputs[2] = (*startingData)[i].rad;
-        layers[0].inputs[3] = (*startingData)[i].airp;
-        layers[0].inputs[4] = (*startingData)[i].hum;
-        //forward pass
-        CallForwardPasses();
+    for (int iter = 0; iter < iterations; iter++) {
+        for (int i = 0; i < numberOfSamples; i++) {
+            currentSample = i;
+            //set the input values
+            layers[0].inputs[0] = (*startingData)[i].temp;
+            layers[0].inputs[1] = (*startingData)[i].wind;
+            layers[0].inputs[2] = (*startingData)[i].rad;
+            layers[0].inputs[3] = (*startingData)[i].airp;
+            layers[0].inputs[4] = (*startingData)[i].hum;
+            std::cout << "sample " << currentSample << ": temp: " << layers[0].inputs[0];
+            std::cout << " wind: " << layers[0].inputs[1] << " rad: " << layers[0].inputs[2];
+            std::cout << " airp: " << layers[0].inputs[3] << " hum: " << layers[0].inputs[4] << " \n";
+            //forward pass
+            CallForwardPasses();
+            //grab result
+            actualResults.push_back(layers[2].nodes[0].output);
 
-        //grab result
-        actualResults.push_back(layers[2].nodes[0].output);
-
-        //backwards pass
-        ErrorCalc();
-        PassErrorWeights();
+            //backwards pass
+            ErrorCalc();
+            PassErrorWeights();
+        }
     }
     Results();
 }
 
 void BackProp::Results() {
     for (unsigned i = 0; i < actualResults.size(); i++) {
-        std::cout << "iteration " << i << ": " << actualResults[i] << ". \n";
+        std::cout << "actual result " << i << ": " << actualResults[i] << "\n";
     }
 }

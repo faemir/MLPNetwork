@@ -14,7 +14,7 @@ bool CSVReader::is_empty(std::ifstream& pFile) {
 
 void CSVReader::InputData(std::vector<dataEntry> *startingData) {
     std::string newline;
-    std::ifstream file ("C:\\Users\\dan\\Documents\\AAIS\\MLPNetwork\\FresnoDataCOC102.csv");
+    std::ifstream file ("C:\\Users\\dan\\Documents\\AAIS\\MLPNetwork\\smallsample.csv");
 
     while(std::getline(file, newline)) {
         std::stringstream lineStream(newline);

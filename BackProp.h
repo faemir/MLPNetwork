@@ -3,6 +3,7 @@
 #include "Layer.h"
 #include <vector>
 #include "CSVReader.h"
+#include <iostream>
 
 class BackProp
 {
